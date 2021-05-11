@@ -1,0 +1,13 @@
+name: PMSapp
+title: PMSapp
+username:
+account: testappsr
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4018517
+bundleId: 4516378
+url: https://testappsr.shinyapps.io/PMSapp/
+when: 1619349575.59672
+lastSyncTime: 1619349575.59672
+asMultiple: FALSE
+asStatic: FALSE
