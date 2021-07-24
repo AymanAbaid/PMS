@@ -1,0 +1,75 @@
+
+---
+title: "Power Market Survey"
+output:
+  html_document:
+    df_print: paged
+  pdf_document: default
+  word_document: default
+---
+\newpage
+
+```{r Libraries, include=FALSE}
+list_of_packages <- c("shiny", "shinydashboard","shinyWidgets","shinyBS","lubridate","easycsv","rmarkdown", "dplyr","plotly")
+lapply(list_of_packages, library, character.only = TRUE)
+source('R/helper_func_var.R')
+# Read Saved Configuration Setting
+load("Config/config.RData")
+
+```
+
+## Category-wise Energy Sale (GWh) Forecast
+
+The category-wise sale forecast without incorporating un-served energy is shown in Table 1- 10
+and Table 1- 11 shows category wise sale with unserved energy respectively.
+
+```{r echo=FALSE, message=TRUE}
+
+         df = read.csv(paste(Data_dir,"Grid Load Data.csv", sep="") ) 
+         df<- df[df$year ==0,][categories_var] # get value for base year only
+         df<- data.frame( t(colSums(df) ))
+         growth_rate_for_each_category = data.frame( matrix( ncol = length(categories_var), nrow=1))
+         colnames(growth_rate_for_each_category)  <- categories_var
+
+
+         for (i in (1: length(categories_var)) )
+         {
+           env_var = paste(categories_var[i], "_gr", sep="")
+           growth_rate_for_each_category[[categories_var[i]]] =  get(env_var, envir = .GlobalEnv)
+ 
+         }
+        
+           
+         start_year <- as.numeric( substr(base_year,1,4) )
+         df <- forecast_using_cagr (df, growth_rate_for_each_category, as.numeric(no_of_years), start_year)
+         
+         
+         
+
+```
+
+
+```{r Category Wise Sales Chart- Base Year, echo=FALSE}
+################## Displaying Chart
+lbl = Categories
+# #Displaying Base Year
+i <- 1 
+curr_yr = df$year[i]
+vals = (df[df$year == curr_yr, categories_var])
+vals <- unname(unlist(list(vals)))
+title = paste("Cateogry Wise Sales Forecast", curr_yr)
+fig <- display_pie_chart(lbl, vals, title)
+fig
+```
+
+
+```{r Category Wise Sales  Chart- Last Year, echo=FALSE}
+#Displaying Last Year
+i <- nrow(df)
+curr_yr = df$year[i]
+vals = (df[df$year == curr_yr, categories_var])
+vals <- unname(unlist(list(vals)))
+title = paste("Cateogry Wise Sales Forecast", curr_yr)
+fig <- display_pie_chart(lbl, vals, title)
+fig
+```
