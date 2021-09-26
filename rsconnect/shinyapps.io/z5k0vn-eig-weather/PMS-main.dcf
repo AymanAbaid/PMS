@@ -1,0 +1,14 @@
+name: PMS-main
+title: PMS-main
+username:
+account: z5k0vn-eig-weather
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4419034
+bundleId: 5071899
+url: https://z5k0vn-eig-weather.shinyapps.io/PMS-main/
+when: 1632602641.73514
+lastSyncTime: 1632602641.73514
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: PMS-doc.html
