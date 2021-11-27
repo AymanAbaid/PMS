@@ -13,10 +13,10 @@ server <- function(input, output, session) {
   Upload_file_exist_on_drive = FALSE
   Upload_file_exist_locally = FALSE
   
-  ## Download Configuration data
-  # download_files_from_google_drive(".", Config_dir,Config_dir,NULL)
-  ##Download Load data
-  # download_files_from_google_drive(".", Data_dir,Data_dir,NULL)
+  # Download Configuration data
+  download_files_from_google_drive(".", Config_dir,Config_dir,NULL)
+  #Download Load data
+  download_files_from_google_drive(".", Data_dir,Data_dir,NULL)
 
   remove_modal_spinner()
 

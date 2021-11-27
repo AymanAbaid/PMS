@@ -1,20 +1,67 @@
-# # # library(forecast)
-# # # 
-# historical_Data <-read.csv("C:\\Users\\Ayman\\Documents\\RAship\\Historical GEPCO.csv")
-# historical_Data=historical_Data[complete.cases(historical_Data),]
-# # historical_Data = historical_Data[,2]
-# expected_prediction<-read.csv("C:\\Users\\Ayman\\Documents\\RAship\\Future GEPCO.csv")
-# # # to_pred = historical_Data[1:length(expected_prediction),]
-# # # to_pred[,2:length(colnames(to_pred))] <- NA
-# # # to_pred$Year <- 2020:2027
-# # # 
-# # # ###-----------------------SES
-# # loading the required packages
-# plot()
-# plot(historical_Data[,c(1,ncol(historical_Data))],  main="Historic Data",
-#      xlab="year ", ylab="Total demand")
-# 
-# plot(expected_prediction[,c(1,ncol(expected_prediction))],  main="Future Data",
-#      xlab="year ", ylab="Total demand")
+# library(forecast)
+# library(ggplot2)
+# library(dplyr)
+# library(broom)
+# library(ggpubr)
+# library(tsbox)
+# library(zoo)
 # 
 # 
+# categories_list <-
+#   c(
+#     "domestic",
+#     "commercial",
+#     "public_light",
+#     "small_industry",
+#     "medium_large_industry",
+#     "public_tube_well") 
+# # # Data Preperation ---------------------------------------------------------------
+# historical_Data <-read.csv("/Users/apple/Documents/EIG/PMS-Data/Historical GEPCO.csv")
+# # historical_Data=historical_Data[complete.cases(historical_Data),]
+# future_Data<- read.csv("/Users/apple/Documents/EIG/PMS-Data/Future GEPCO.csv")
+# GEPCO_data <- rbind(historical_Data,future_Data)
+# # GEPCO_data<- GEPCO_data[complete.cases(GEPCO_data),]
+# # Adding Covid Feature
+# # data= AirPassengers
+# GEPCO_data$Covid <- 0
+# GEPCO_data$year <- as.numeric(GEPCO_data$year)
+# GEPCO_data[ (GEPCO_data$year>=2020),]$Covid = 1
+# data <- GEPCO_data[,c("year","total")]
+# 
+# #Fill Missing Value using Linear Interpolation
+# data[data == 0] <- NA
+# data$total <- na.approx(data$total)
+# 
+# # Coverting Dataframe to TS (time Series)
+# ts_data = ts_ts(ts_long(data))
+# # train_Data <- GEPCO_data[GEPCO_data$year <= 2019,]
+# 
+# # Dividing Data to Train and Test 
+# train_Data = window(ts_data, start=c(2002,1), end =c(2019,1))
+# test_Data = window(ts_data, start=c(2020,1))
+# 
+# 
+# 
+# # data<- data[complete.cases(data),]
+# 
+# # # Seasonal Naive Forecast ---------------------------------------------------------------
+# snaive = snaive(train_Data, h= length(test_Data))
+# accuracy(snaive$mean, test_Data)
+# # #  Naive Forecast ---------------------------------------------------------------
+# naive = naive(train_Data, h= length(test_Data))
+# accuracy(naive$mean, test_Data)
+# 
+# 
+# # #  Exponential Smoothing  Forecast ---------------------------------------------------------------
+# ets_model = ets(train_Data, allow.multiplicative.trend = TRUE,)
+# ets_forecast = forecast(ets_model, h= length(test_Data))
+# accuracy(ets_forecast$mean, test_Data)
+# 
+# # #  Linear Interpolation  Forecast ---------------------------------------------------------------
+# linear_interpol= data
+# linear_interpol$total <- na.approx(data$total, na.rm = FALSE)
+# t = 
+#   
+# #plot 
+# plot(data, col="blue", xlab="Year", ylab="Passengers", main="Total Energy", type ='l')
+# lines(naive$mean, col ="red", lwd=2)

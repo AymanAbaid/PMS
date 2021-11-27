@@ -1,0 +1,26 @@
+{
+    "id": "ABCC8E2B",
+    "path": "~/Documents/EIG/PMS-App/R/forecasting.R",
+    "project_path": "R/forecasting.R",
+    "type": "r_source",
+    "hash": "0",
+    "contents": "",
+    "dirty": true,
+    "created": 1636665047121.0,
+    "source_on_save": false,
+    "relative_order": 2,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "60,0",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1636906215,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1636906827394,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,5 @@
+"0","# Read Saved Configuration Setting"
+"0","load(""Config/config.RData"")"
+"0","growth_rate_df <- read.csv(""Config/growth_rate_df.csv"")"
+"0","row.names(growth_rate_df) <- Disco_List"
+"0","growth_rate_df <- growth_rate_df[,-1]"

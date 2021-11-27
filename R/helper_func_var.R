@@ -8,7 +8,8 @@ library(googledrive)
 
 # filename = "GEPCO-2019-Planned Load Data.csv"
 # parent_dir ="Data/"
-# download_files_from_google_drive(filename,parent_dir)
+# local_dir ="Data/"
+# drive_download(filename, parent_dir)#, local_dir, filename)
 
 upload_files_to_google_drive = function(filename, parent_dir){
   
